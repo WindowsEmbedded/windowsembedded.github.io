@@ -1,0 +1,259 @@
+<!--Windows 90 Web/Main-->
+<!DOCTYPE html>
+<html style="cursor:url('../Sys46/cursor/default.png'),auto">
+    <head>
+        <meta charset="utf-8">
+        <meta name="keywords" content="WINDOWS 90">
+        <meta name="description" content="Windows90模拟器">
+        <title>Windows 90</title>
+        <script src="..\Sys46\js\sys46.js"></script>
+        <script src="..\Sys46\js\jquery.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script> 
+        <style>
+            @font-face {
+			    font-family: BIOS;
+			    src: url(../Sys46/font/bios.ttf);
+		    }
+        </style>
+        <link rel="stylesheet" type="text/css" href="../Sys46/css/desktop.css">
+        <link rel="icon" href="../Sys46/img/starticon.png" type="image/x-icon">
+        
+    </head>
+    <body onload="PrintInf()">
+        <div id="boots" style="position:absolute;background-color: black; height: 100%;width: 100%; top:0%;left:0%" >
+            <div id="printinf" style="color: #FFFFFF; font-family: BIOS;">e</div><br>
+		    <div id="printinf2" style="color: rgb(200, 255, 0);font-family:BIOS"></div><br>
+            <div id="printinf3" style="color:#FFFFFF;font-family:BIOS"></div>
+        </div>
+        <div id="desktop" style="position:absolute;top:0%;left:0%;height:100%;width:100%;
+        background-color: yellowgreen; /*在不支持渐变的浏览器（如IE8）显示*/ background-image:linear-gradient(to top right,rgba(225, 0, 255, 0.863),rgb(136, 255, 0));display: none;">
+            <div class="taskbar">
+                <div class="StartButton" id="Starts" onclick="StartButtonClicked();"></div>
+                <div class="Times" id="Times" ><label id="LabelTimes"></label></div>   
+            </div>
+            <div id="BuildInfo">
+                <span id="BuildInfos" style="position:fixed;left:70%;top:85%;color:rgb(97, 92, 92);text-align: right;">
+                    Windows 90 Web<br>Software Test Build(Pre-Millstone),Version 0.20.0200-jst-01
+                </span>
+            </div>
+            <div class="Window testSoftwares" id="testSoftware" style="display: none;top:30%;left:30%" draggable="false">
+                <!--这个窗口是测试用的，后面会删-->
+                <div class="titlebar" id="testTitlebar" style="display:block">
+                    <img src="../Sys46/img/close.png" style="
+                        position: absolute;
+                        left:95%;
+                        top:1%
+                    " id="testSoftwareClose">
+                </div>
+                
+            </div>
+            <div class="StartMenu" id="StartMenu" style="display:none;">
+                <div class="MenuItems">
+                    <div class="ItemButtons" id="ShutdownButton" style="position:absolute;top:90%;background-color: silver;">  
+                        <img src="../Sys46/img/shutdown.png"></img>
+                        <div class="ShutdownButtonText" >关机</div>
+                    </div>
+                    <div class="ItemButtons" id="ResetButton" style="position:absolute;top:80%;background-color:silver;">
+                        <img src="../Sys46/img/reset.png"></img>
+                        <div class="ResetButtonText">重置</div>
+                    </div>
+                    <div class="ItemButtons" id="TestProgramButton" style="position:absolute;top:70%;background-color:silver;">
+                        <img src="../Sys46/img/program.png"></img>
+                        <div class="texts ButtonText">软件测试</div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div id="resets" style="
+            position:absolute;
+            top:0%;
+            left: 0%;
+            height: 100%;
+            width: 100%;
+            display: none;
+            background-color: blue;
+            background-image: linear-gradient(to bottom,blue,black);
+            
+        ">
+            <!--<label style="
+                font-family: Arial;
+                font-size:400%;
+                font-weight: bolder;
+                font-style: italic;
+                color:white;
+                text-shadow: 5px 5px rgb(0, 0, 170);
+            ">Windows Setup</label>-->
+            <div id="ResetWindow" class="Window" style="top: calc(50%/2);left: calc(50%/2);">
+                <div id="ResetWindowTitlebar" class="titlebar"></div>
+                <label style="top:calc(50%/2);left:calc(50%/2)" onclick="
+                    localStorage.setItem('Reset',false);
+                    location.reload();
+                ">Coming soon,click me to reboot</label>
+            </div>
+        </div>
+        <script>
+            var Reset = Sys46.Var.toBoolean(localStorage.getItem("Reset"));
+            document.querySelector("#BuildInfos").innerHTML = "Windows 90 Web <br>Version 0/Software test version(" + Sys46.Var.SystemVersion + ")<br>"
+            function PrintInf(){
+            if(!Sys46.documents.isIE()) {
+			document.getElementById("printinf").innerHTML = "";
+			document.getElementById("printinf").innerHTML = "Windows 90("+Sys46.Var.SystemVersion+")<br>"; 
+			setTimeout(function(){
+				document.getElementById("printinf").innerHTML = document.getElementById("printinf").innerHTML + navigator.userAgent+"<br>";
+			},700);
+			setTimeout(function(){
+				document.getElementById("printinf").innerHTML = document.getElementById("printinf").innerHTML + "BrowserCodeName:" + navigator.appCodeName + "<br>";
+				document.getElementById("printinf").innerHTML = document.getElementById("printinf").innerHTML + "BrowserName:" + navigator.appName + "<br>";
+				document.getElementById("printinf").innerHTML =document.getElementById("printinf").innerHTML +"BrowserVersion:" + navigator.appVersion + "<br>";
+			},900);
+			setTimeout(function(){
+				document.getElementById("printinf2").innerHTML = "Starting Windows..." + "<br>"
+			},1000)
+			setTimeout(function(){
+				//FadeOut(document.getElementById("printinf"));
+                if(!Reset){
+				document.getElementById("desktop").style.display = "block";
+                document.getElementById("boots").style.display = "none";
+                }
+                
+			},5000);
+            if(Reset) {
+                setTimeout(function(){
+                    document.getElementById("printinf3").innerHTML = "Initializing Windows90 setup...";
+                },4000);
+                setTimeout(function(){
+                    document.getElementById("resets").style.display = "block";
+                    document.getElementById("boots").style.display = "none";
+                },10000)
+            }
+
+			return;
+        }else {
+            document.getElementById("printinf").innerHTML = "ERROR: Windows90 Web doesn't support IE<br>"
+        }
+		}
+        console.log(
+"       \033[32m\
+       Windows 90 Web\033[0m\n\
+              Version 0.2.150");
+        console.log(navigator.userAgent);
+            
+        var StartButtonOpened = false;
+        var StartButtons = document.getElementById("Starts");
+        var StartMenus = document.getElementById("StartMenu");
+        var BuildInfoses = document.getElementById("BuildInfos");
+        var ShutdownButtons = document.getElementById("ShutdownButton");
+        var ResetButtons = document.getElementById("ResetButton");
+        var Timeses = document.getElementById("LabelTimes");
+        var SoftwareTests = document.getElementById("TestProgramButton");
+        var testbutton = document.getElementById("TestProgramButton");
+        var Dates = new Date();
+        function setCookie(cname,cvalue,exdays){
+            var d = new Date();
+            d.setTime(d.getTime()+(exdays*24*60*60*1000));
+            var expires = "expires="+d.toGMTString();
+            document.cookie = cname+"="+cvalue+"; "+expires;
+        }
+        function getCookie(cname){
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name)==0) { return c.substring(name.length,c.length); }
+            }
+            return "";
+        }
+        function moveDialog(dialogid,titlebarid) { //移动窗口
+            var offsetLeft;
+            var offsetTop;
+            var isDown = false;
+            $(titlebarid).mousedown(function(e) { //鼠标按下事件
+                var x = e.clientX;
+                var y = e.clientY;
+                var styleLeft = $(dialogid).css("left");
+                var styleTop = $(dialogid).css("top")
+                offsetLeft = x-parseInt(styleLeft);
+                offsetTop = y-parseInt(styleTop);
+                isDown = true;
+                
+                //console.log("mousedown"+styleLeft)
+            });
+            $(document).mousemove(function(e) {
+                if(isDown) { //判断是否已按下鼠标
+                    var newLeft = e.clientX-offsetLeft
+                    var newTop = e.clientY-offsetTop
+                    /*防止窗口被拖出边界*/
+                    if (newLeft > window.innerWidth - document.querySelector(dialogid).offsetWidth) newLeft =  window.innerWidth - document.querySelector(dialogid).offsetWidth;
+                    if (newTop > window.innerHeight - document.querySelector(dialogid).offsetHeight) newTop = window.innerHeight - document.querySelector(dialogid).offsetHeight;
+                    if (newLeft < 0) newLeft = 0;
+                    if (newTop < 0) newTop = 0;
+                    $(dialogid).css("left",newLeft).css("top",newTop);
+                    //console.log("mousemove,newleft:"+e.clientX+"offsetlefy:"+offsetLeft)
+                    
+                }
+            });
+            $(document).mouseup(function() { //鼠标松开事件
+                isDown = false
+                
+            })
+        }
+        function StartButtonClicked(){
+            if(StartButtonOpened){
+                StartButtonOpened = false;
+                StartButtons.setAttribute("style","border-style:outset;");
+                StartMenus.style.display = "none";
+
+            }else{
+                StartButtonOpened = true;
+                StartButtons.setAttribute("style","border-style:inset;");
+                StartMenus.style.display = "block";
+            }
+        }
+        ShutdownButtons.addEventListener("mouseover",function(){
+            ShutdownButtons.setAttribute("style","position:absolute;top:90%;background-color: blue;color:snow;");
+        });ShutdownButtons.addEventListener("mouseout",function(){
+            ShutdownButtons.setAttribute("style","position:absolute;top:90%;background-color: silver;");
+            
+        });
+        ResetButtons.addEventListener("mouseover",function(){
+            ResetButtons.setAttribute("style","position:absolute;top:80%;background-color: blue;color:snow;");
+        });ResetButtons.addEventListener("mouseout",function(){
+            ResetButtons.setAttribute("style","position:absolute;top:80%;background-color: silver;");
+        })
+        SoftwareTests.addEventListener("mouseover",function(){
+            SoftwareTests.setAttribute("style","position:absolute;top:70%;;background-color: blue;color:snow;");
+        });SoftwareTests.addEventListener("mouseout",function(){
+            SoftwareTests.setAttribute("style","position:absolute;top:70%;background-color: silver;");
+        });
+        testbutton.onclick = function(ev){
+            document.getElementById("testSoftware").setAttribute("style","display:block;position:absolute");
+        }
+        ShutdownButtons.onclick = function(){
+            window.location.reload()
+        }
+        ResetButtons.onclick = function(){
+            //alert("目前不用重置系统");
+            Reset = true;
+            window.localStorage.setItem("Reset","true");
+            document.getElementById("desktop").style.display = "none";
+            document.getElementById("boots").style.display = "block";
+            PrintInf();
+        }
+        function TaskbarTimes(){
+            var hours = Dates.getHours();
+            var Minutes = Dates.getMinutes();
+            Timeses.innerHTML = hours+":"+Minutes ;
+        }
+        document.getElementById("testSoftwareClose").onmousedown = function(ev) { //在关闭按钮按下鼠标
+            document.getElementById("testSoftwareClose").setAttribute("src","../Sys46/img/close2.png");
+        };document.getElementById("testSoftwareClose").onmouseup = function(ev) {
+            document.getElementById("testSoftwareClose").setAttribute("src","../Sys46/img/close.png");
+            document.getElementById("testSoftware").style.display = "none"
+        }
+        moveDialog("#testSoftware","#testTitlebar");
+        setInterval(TaskbarTimes,500);
+        </script>
+    </body>
+</html>
+<!--兼容IE？不可能的-->

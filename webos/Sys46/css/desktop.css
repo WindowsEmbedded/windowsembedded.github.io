@@ -1,0 +1,91 @@
+html{
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.taskbar{
+    height:28px;
+    width:100%;
+    position: fixed;
+    bottom:0%;
+    right:0%;
+    border-style: groove;
+    background-color: rgb(192,192,192);
+}.StartButton{
+    background-color: silver;
+    height: 23px;
+    width:23px;
+    right:97%;
+    position:fixed;
+    border-style: outset;
+    border-color:aliceblue;
+    background-image: url("../img/starticon.png");
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    display: inline-block;
+    cursor:url("../cursor/default.png");
+}.StartMenu{
+    background-color: silver;
+    position:fixed;
+    top:60%;
+    left:1%;
+    height:350px;
+    width:200px;
+}.MenuItems{
+    background-color:silver;
+    position:fixed;
+    height:350px;
+    width:200px;
+}.Buttons{
+    background-color: silver;
+    border-style:outset;
+}.ItemButtons{
+    width:200px;
+    height:25px;
+}.Times{
+    width:65px;
+    height:25px;
+    border-style:inset;
+    font-family:sans-serif;
+    margin-left: auto;
+}.ShutdownButtonText{
+    display: inline-block;
+    align-items: center;
+    position: relative;
+    top:-5px
+}.ResetButtonText{
+    display: inline-block;
+    align-items: center;
+    position: relative;
+    top:-5px;
+}.ButtonText{
+    display: inline-block;
+    align-items: center;
+    position: relative;
+    top:-5px;
+}
+.texts{
+    font-family: Tahoma;
+}.Window{
+    background-color:rgb(192,192,192);
+    border: none;
+    border-left:1px solid #dfdfdf;
+    border-top: 1px solid #dfdfdf;
+    border-right:1px solid #000000;
+    border-bottom: 1px solid #000000;
+    position: absolute;
+}#testSoftware{
+    height:300px;
+    width:500px;
+    /*top:0px;
+    left:0px*/
+}.titlebar{
+    width:100%;
+    height: 20px;
+    background-color: blue;
+    background-image: linear-gradient(to right,rgba(225, 0, 255, 0.863),rgb(136, 255, 0));
+    top:0px;left: 0px;
+}#ResetWindow{
+    height: 500px;
+    width: 700px;
+}
